@@ -32,8 +32,14 @@ public class StudentController {
         return studentService.getStudents(accountId);
     }
 
-    @PostMapping
-    public void registerNewStudent(@RequestBody Student student) {
-        studentService.addNewStudent(student);
+    @PostMapping("/account/{accountId}/students")
+    public Student registerNewStudent(@RequestBody Student student, @PathVariable(value = "accountId") Long accountId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!accountId.equals(Long.valueOf(authentication.getPrincipal().toString()))) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        return studentService.addNewStudent(student, accountId);
     }
 }

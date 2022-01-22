@@ -1,9 +1,12 @@
 package com.roynulrohan.studentdatabaseapi.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="ACCOUNT")
+@Table(name = "ACCOUNT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,11 +60,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", token='" + token + '\'' +
-                '}';
+        return "Account{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", token='" + token + '\'' + '}';
     }
 }

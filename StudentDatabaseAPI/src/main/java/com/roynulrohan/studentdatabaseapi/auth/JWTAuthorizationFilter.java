@@ -21,8 +21,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     private final String SECRET = "#{systemEnvironment['JWT_SECRET']} ?: 'mySecretToken'";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
             if (checkJWTToken(request, response)) {
                 Claims claims = validateToken(request);

@@ -1,5 +1,9 @@
 package com.roynulrohan.studentdatabaseapi.student;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.roynulrohan.studentdatabaseapi.account.Account;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -11,6 +15,7 @@ import java.time.Period;
 
 @Entity
 @Table(name = "STUDENT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +30,12 @@ public class Student {
     @Transient
     @Column(nullable = false)
     private Integer age;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "account_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private Account adminAccount;
-
 
     public Student() {
     }
@@ -82,15 +87,17 @@ public class Student {
         this.age = age;
     }
 
+
+    public Account getAdminAccount() {
+        return adminAccount;
+    }
+
+    public void setAdminAccount(Account adminAccount) {
+        this.adminAccount = adminAccount;
+    }
+
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dob=" + dob +
-                ", age=" + age +
-                ", adminUser=" + adminAccount +
-                '}';
+        return "Student{" + "id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + ", dob=" + dob + ", age=" + age + ", adminAccount=" + adminAccount.getId() + '}';
     }
 }
