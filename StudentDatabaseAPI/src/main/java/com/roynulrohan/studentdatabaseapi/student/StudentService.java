@@ -18,28 +18,25 @@ public class StudentService {
     private AccountRepository accountRepository;
 
     public List<Student> getStudents(Long accountId) {
+        List<Student> students = studentRepository.findAllByAdminAccount_Id(accountId);
+
+        if (students.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No student records");
+        }
+
         return studentRepository.findAllByAdminAccount_Id(accountId);
     }
 
-    public Student getStudent(String email) {
-        Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
-
-        if (studentOptional.isEmpty()) {
-            throw new IllegalStateException("Student with that email does not exist.");
-        }
-
-        return studentOptional.get();
-    }
-
     public Student addNewStudent(Student student, Long accountId) {
-        Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
+        Optional<Student> studentOptional = studentRepository.findByEmailAndAdminAccount_Id(student.getEmail(), accountId);
+
         if (studentOptional.isPresent()) {
             throw new IllegalStateException("Student with email exists");
         }
 
         Optional<Account> accountOptional = accountRepository.findAccountById(accountId);
 
-        if(accountOptional.isEmpty()) {
+        if (accountOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
 

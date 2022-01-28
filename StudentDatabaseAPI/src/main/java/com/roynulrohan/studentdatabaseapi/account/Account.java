@@ -1,12 +1,15 @@
 package com.roynulrohan.studentdatabaseapi.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ACCOUNT")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,7 @@ public class Account {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Transient
     private String token;
 
     public Account() {

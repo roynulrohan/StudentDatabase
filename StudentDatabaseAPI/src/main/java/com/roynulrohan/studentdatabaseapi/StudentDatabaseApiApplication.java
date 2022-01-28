@@ -4,7 +4,6 @@ import com.roynulrohan.studentdatabaseapi.account.AccountRepository;
 import com.roynulrohan.studentdatabaseapi.auth.JWTAuthorizationFilter;
 import com.roynulrohan.studentdatabaseapi.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @RestController
 @EnableJpaRepositories
-public class StudentDatabaseApiApplication implements CommandLineRunner {
+public class StudentDatabaseApiApplication {
     @Autowired
     StudentRepository studentRepository;
     @Autowired
@@ -37,20 +36,9 @@ public class StudentDatabaseApiApplication implements CommandLineRunner {
         return new BCryptPasswordEncoder();
     }
 
-    @RequestMapping("hello")
-    public String getHello() {
-        return "Hello Spring!";
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-//        Account roynul = new Account("Roynul", new BCryptPasswordEncoder().encode("123"));
-//
-//        accountRepository.saveAll(List.of(roynul, slay));
-//
-//        Student roynul1 = new Student("Roynul", "roynulrohan@gmail.com", LocalDate.of(2002, 6, 30), roynul);
-//
-//        studentRepository.saveAll(List.of(roynul1, slay1));
+    @RequestMapping
+    public String getHome() {
+        return "Hello! This is a REST API built with Java Spring Boot.";
     }
 
     @EnableWebSecurity
@@ -63,7 +51,8 @@ public class StudentDatabaseApiApplication implements CommandLineRunner {
                     UsernamePasswordAuthenticationFilter.class).authorizeRequests().antMatchers(
                     "/account/login").permitAll().antMatchers(
                     "/account/register").permitAll().antMatchers(
-                    "/error").permitAll().anyRequest().authenticated();
+                    "/error").permitAll().antMatchers(
+                    "/").permitAll().anyRequest().authenticated();
         }
     }
 }

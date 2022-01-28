@@ -33,10 +33,10 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public Account login(@RequestParam("username") String username, @RequestParam("password") String password) {
-        Account account = accountService.getAccount(username);
+    public Account login(@RequestBody Account accountBody) {
+        Account account = accountService.getAccount(accountBody.getUsername());
 
-        if (!new BCryptPasswordEncoder().matches(password, account.getPassword())) {
+        if (!new BCryptPasswordEncoder().matches(accountBody.getPassword(), account.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     "Username / Password combination does not match.");
         }
