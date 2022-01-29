@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import static com.roynulrohan.studentdatabaseapi.auth.JWT.getJWTToken;
 
 @RestController
-@RequestMapping(path = "account")
+@RequestMapping(path = "/api/account")
 public class AccountController {
     private final AccountService accountService;
 

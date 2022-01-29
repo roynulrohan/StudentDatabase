@@ -1,9 +1,7 @@
 package com.roynulrohan.studentdatabaseapi;
 
-import com.roynulrohan.studentdatabaseapi.account.AccountRepository;
+import com.roynulrohan.studentdatabaseapi.auth.AccountRequestFilter;
 import com.roynulrohan.studentdatabaseapi.auth.JWTAuthorizationFilter;
-import com.roynulrohan.studentdatabaseapi.student.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -15,17 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-@RestController
 @EnableJpaRepositories
 public class StudentDatabaseApiApplication {
-    @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    AccountRepository accountRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(StudentDatabaseApiApplication.class, args);
@@ -36,11 +28,6 @@ public class StudentDatabaseApiApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @RequestMapping
-    public String getHome() {
-        return "Hello! This is a REST API built with Java Spring Boot.";
-    }
-
     @EnableWebSecurity
     @Configuration
     static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -48,9 +35,9 @@ public class StudentDatabaseApiApplication {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.cors().and().csrf().disable().formLogin().disable().addFilterAfter(new JWTAuthorizationFilter(),
-                    UsernamePasswordAuthenticationFilter.class).authorizeRequests().antMatchers(
-                    "/account/login").permitAll().antMatchers(
-                    "/account/register").permitAll().antMatchers(
+                    UsernamePasswordAuthenticationFilter.class).addFilterAfter(new AccountRequestFilter(), BasicAuthenticationFilter.class).authorizeRequests().antMatchers(
+                    "/api/account/login").permitAll().antMatchers(
+                    "/api/account/register").permitAll().antMatchers(
                     "/error").permitAll().antMatchers(
                     "/").permitAll().anyRequest().authenticated();
         }
