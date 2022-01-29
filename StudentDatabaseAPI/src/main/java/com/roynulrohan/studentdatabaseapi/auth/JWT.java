@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class JWT {
     public static String getJWTToken(Account account) {
-        String secretKey = "#{systemEnvironment['JWT_SECRET']} ?: 'mySecretToken'";
+        String secretKey = System.getenv("JWT_SECRET");
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
         String token = Jwts.builder().setId(account.getId().toString()).setSubject(account.getUsername()).claim("authorities",
