@@ -40,7 +40,10 @@ ___
 | POST   | `/api/account/login `   | Login to existing account |
 
 <br>
+
 Both require the following body `{ username, password }`, example shown below
+
+
 
 ```
 {
@@ -65,6 +68,7 @@ Returns the **account ID** along with **Bearer Token** which will be required fo
 | PATCH  | `/api/account/{accountID}/students/studentID ` | Update student partially |
 
 <br>
+
 POST and PUT endpoints require the following body `{ name, email, dob }`, example shown below
 
 ```
