@@ -13,6 +13,8 @@ This project is a REST API that allows for creation of accounts and CRUD operati
 -   [Model](#model)<br/>
 -   [Development](#development)<br/>
 
+___
+
 ## Stack
 
 This project was developed with Java Spring Boot and PostgreSQL.
@@ -27,6 +29,7 @@ This project was developed with Java Spring Boot and PostgreSQL.
 -   Thymeleaf
 -   JUnit
 
+___ 
 ## Usage
 
 #### Account Commands
@@ -36,6 +39,7 @@ This project was developed with Java Spring Boot and PostgreSQL.
 | POST   | `/api/account/register` | Create new account        |
 | POST   | `/api/account/login `   | Login to existing account |
 
+<br>
 Both require the following body `{ username, password }`, example shown below
 
 ```
@@ -46,8 +50,6 @@ Both require the following body `{ username, password }`, example shown below
 ```
 
 Returns the **account ID** along with **Bearer Token** which will be required for authentication
-
----
 
 #### Student Commands
 
@@ -62,6 +64,7 @@ Returns the **account ID** along with **Bearer Token** which will be required fo
 | PUT    | `/api/account/{accountID}/students/studentID`  | Replace student by ID    |
 | PATCH  | `/api/account/{accountID}/students/studentID ` | Update student partially |
 
+<br>
 POST and PUT endpoints require the following body `{ name, email, dob }`, example shown below
 
 ```
@@ -74,9 +77,12 @@ POST and PUT endpoints require the following body `{ name, email, dob }`, exampl
 
 PATCH endpoint uses only the `name`, `email` attributes. Both are _optional_.
 
+___
 ## Model
 
 ![](misc/studentdatabase-model.png)_Modeled using PgModeler_
+
+___
 
 ## Development
 
