@@ -1,6 +1,5 @@
-package com.roynulrohan.studentdatabaseapi.auth;
+package com.roynulrohan.studentdatabaseapi.authorization;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    private String SECRET = Dotenv.load().get("JWT_SECRET");
+    private String SECRET = System.getenv("JWT_SECRET");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {

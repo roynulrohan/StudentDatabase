@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import static com.roynulrohan.studentdatabaseapi.auth.JWT.getJWTToken;
+import static com.roynulrohan.studentdatabaseapi.authorization.JWT.getJWTToken;
 
 @RestController
 @RequestMapping(path = "/api/account")

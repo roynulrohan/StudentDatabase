@@ -15,12 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DataSourceRestControllerIntegrationTest {
+public class JUnitTests {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void DataSource_Status200() throws Exception {
+    public void Index_Status200() throws Exception {
 
         mvc.perform(get("/").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 

@@ -1,7 +1,7 @@
 package com.roynulrohan.studentdatabaseapi;
 
-import com.roynulrohan.studentdatabaseapi.auth.AccountRequestFilter;
-import com.roynulrohan.studentdatabaseapi.auth.JWTAuthorizationFilter;
+import com.roynulrohan.studentdatabaseapi.authorization.AccountRequestFilter;
+import com.roynulrohan.studentdatabaseapi.authorization.JWTAuthorizationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -39,7 +39,8 @@ public class StudentDatabaseApiApplication {
                     "/api/account/login").permitAll().antMatchers(
                     "/api/account/register").permitAll().antMatchers(
                     "/error").permitAll().antMatchers(
-                    "/").permitAll().anyRequest().authenticated();
+                    "/").permitAll().antMatchers(
+                    "/api/account/**").authenticated().anyRequest().authenticated();
         }
     }
 }

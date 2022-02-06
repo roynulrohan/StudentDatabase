@@ -1,7 +1,6 @@
-package com.roynulrohan.studentdatabaseapi.auth;
+package com.roynulrohan.studentdatabaseapi.authorization;
 
 import com.roynulrohan.studentdatabaseapi.account.Account;
-import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JWT {
-    static String secretKey = Dotenv.load().get("JWT_SECRET");
+    static String secretKey = System.getenv("JWT_SECRET");
 
     public static String getJWTToken(Account account) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");

@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.roynulrohan</groupId>
     <artifactId>StudentDatabaseAPI</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>StudentDatabaseAPI</name>
     <description>StudentDatabaseAPI</description>
     <properties>
@@ -58,12 +58,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.cdimascio</groupId>
-            <artifactId>dotenv-java</artifactId>
-            <version>2.2.0</version>
         </dependency>
 
         <dependency>

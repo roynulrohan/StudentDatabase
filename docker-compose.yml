@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  restapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - studentdatabaseapi-network
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_JPA_DDL_MODE=${SPRING_JPA_DDL_MODE}
+      - JWT_SECRET=${JWT_SECRET}
+
+
+networks:
+    studentdatabaseapi-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local

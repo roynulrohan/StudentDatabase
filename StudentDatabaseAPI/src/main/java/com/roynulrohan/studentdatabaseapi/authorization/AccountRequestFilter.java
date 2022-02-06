@@ -1,4 +1,4 @@
-package com.roynulrohan.studentdatabaseapi.auth;
+package com.roynulrohan.studentdatabaseapi.authorization;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -13,22 +13,26 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AccountRequestFilter extends GenericFilterBean {
-    RequestMatcher customFilterUrl = new AntPathRequestMatcher("/account/{accountId}/students/**");
+    RequestMatcher customFilterUrl = new AntPathRequestMatcher("/api/account/{accountId}/students/**");
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
         if (customFilterUrl.matches(httpServletRequest)) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-            Long accountId = Long.valueOf(httpServletRequest.getRequestURI().split("/")[2]);
+            if(authentication != null) {
+                Long accountId = Long.valueOf(httpServletRequest.getRequestURI().split("/")[3]);
 
-            if (!accountId.equals(Long.valueOf(authentication.getPrincipal().toString()))) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+                if (!accountId.equals(Long.valueOf(authentication.getPrincipal().toString()))) {
+                    throw new ResponseStatusException(HttpStatus.BAD_GATEWAY);
+                }
             }
 
         }

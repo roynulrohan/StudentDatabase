@@ -8,7 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
-import static com.roynulrohan.studentdatabaseapi.auth.JWT.getJWTToken;
+import static com.roynulrohan.studentdatabaseapi.authorization.JWT.getJWTToken;
 
 @Service
 public class AccountService {
@@ -23,7 +23,8 @@ public class AccountService {
         Optional<Account> accountOptional = accountRepository.findAccountByUsername(username);
 
         if (accountOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Account with username does not exist.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    "Username / Password combination does not match.");
         }
 
         return accountOptional.get();

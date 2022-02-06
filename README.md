@@ -22,7 +22,6 @@ This project was developed with Java Spring Boot and PostgreSQL.
 - PostgreSQL
 - JWT
 - Thymeleaf
-- Dotenv-Java
 - JUnit
 
 ## Model
@@ -53,8 +52,9 @@ touch .env
 3) Open up the `.env` file and provide the following variables. **Imporant** - Database must exist. This application is able to modify the given instance, not create a new one.
 
 ```bash
-# URL of database including the database name eg. localhost:5432/studentdatabase
-SPRING_DATASOURCE_URL=
+# URL of database including the database name 
+# eg. jdbc:postgresql://localhost:5432/studentdatabase
+SPRING_DATASOURCE_URL=jdbc:postgresql://{YOUR_DB_URL}
 
 # database username
 SPRING_DATASOURCE_USERNAME=
@@ -77,4 +77,18 @@ JWT_SECRET=
 
 ```bash
 mvn spring-boot:run
+```
+
+**To run with Docker**
+
+1) Copy your `.env` file to the project root.
+
+2) Within the root directory, build the application using
+```bash
+docker-compose build
+```
+
+3) Now you can run the application using
+```bash
+docker-compose up
 ```
