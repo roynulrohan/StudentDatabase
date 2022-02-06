@@ -32,7 +32,7 @@ This project was developed with Java Spring Boot and PostgreSQL.
 ___ 
 ## Usage
 
-#### Account Commands
+### Account Commands
 
 | Method | Endpoint                | Description               |
 | ------ | ----------------------- | ------------------------- |
@@ -54,7 +54,7 @@ Both require the following body `{ username, password }`, example shown below
 
 Returns the **account ID** along with **Bearer Token** which will be required for authentication
 
-#### Student Commands
+### Student Commands
 
 **Important** - Authentication is required for the following endpoints via **Bearer Token** which can be obtained from the account commands.
 
