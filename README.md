@@ -4,6 +4,10 @@
 
 This project is a REST API that allows for creation of accounts and CRUD operations with Student data.
 
+API URL: `https://studentdatabaseapi.azurewebsites.net`
+
+See [usage](#usage) for instructions.
+
 ## Table of Contents
 
 -   [Stack](#stack)<br/>
@@ -13,7 +17,7 @@ This project is a REST API that allows for creation of accounts and CRUD operati
 -   [Model](#model)<br/>
 -   [Development](#development)<br/>
 
-___
+---
 
 ## Stack
 
@@ -29,8 +33,15 @@ This project was developed with Java Spring Boot and PostgreSQL.
 -   Thymeleaf
 -   JUnit
 
-___ 
+---
+
 ## Usage
+
+Append following commands to
+
+```
+https://studentdatabaseapi.azurewebsites.net
+```
 
 ### Account Commands
 
@@ -42,8 +53,6 @@ ___
 <br>
 
 Both require the following body `{ username, password }`, example shown below
-
-
 
 ```
 {
@@ -58,14 +67,14 @@ Returns the **account ID** along with **Bearer Token** which will be required fo
 
 **Important** - Authentication is required for the following endpoints via **Bearer Token** which can be obtained from the account commands.
 
-| Method | Endpoint                                       | Description              |
-| ------ | ---------------------------------------------- | ------------------------ |
-| POST   | `/api/account/{accountID}/students `           | Add new student          |
-| GET    | `/api/account/{accountID}/students `           | Get all your students    |
-| GET    | `/api/account/{accountID}/students/studentID`  | Get student by ID        |
-| DELETE | `/api/account/{accountID}/students/studentID`  | Delete student by ID     |
-| PUT    | `/api/account/{accountID}/students/studentID`  | Replace student by ID    |
-| PATCH  | `/api/account/{accountID}/students/studentID ` | Update student partially |
+| Method | Endpoint                                         | Description              |
+| ------ | ------------------------------------------------ | ------------------------ |
+| POST   | `/api/account/{accountID}/students `             | Add new student          |
+| GET    | `/api/account/{accountID}/students `             | Get all your students    |
+| GET    | `/api/account/{accountID}/students/{studentID}`  | Get student by ID        |
+| DELETE | `/api/account/{accountID}/students/{studentID}`  | Delete student by ID     |
+| PUT    | `/api/account/{accountID}/students/{studentID}`  | Replace student by ID    |
+| PATCH  | `/api/account/{accountID}/students/{studentID} ` | Update student partially |
 
 <br>
 
@@ -81,12 +90,13 @@ POST and PUT endpoints require the following body `{ name, email, dob }`, exampl
 
 PATCH endpoint uses only the `name`, `email` attributes. Both are _optional_.
 
-___
+---
+
 ## Model
 
 ![](misc/studentdatabase-model.png)_Modeled using PgModeler_
 
-___
+---
 
 ## Development
 
